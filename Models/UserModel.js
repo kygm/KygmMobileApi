@@ -24,4 +24,4 @@ const Usr = new Schema({
   }
 });
 
-mongoose.model('Receipt', Rcpt);
+mongoose.model('User', Usr);
