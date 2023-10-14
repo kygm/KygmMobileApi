@@ -35,6 +35,10 @@ router.post("/", (req, res) => {
   return res.send("Dogget")
 });
 
+router.get("/ApiVersion", (req, res) => {
+  return res.send("1.0.0.1");
+});
+
 router.post("/login", async (req, res) => {
   let { username, password } = req.body;
 
