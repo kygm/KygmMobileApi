@@ -158,6 +158,42 @@ router.get("/GetUsers", async (req, res) =>
   }
 });
 
+router.get("/GetUserById", async (req, res) =>
+{
+  var token;
+  try
+  {
+    token = req.headers.authorization.split(' ')[1];
+  }
+  catch {
+    return res.status(401).send("Auth problem")
+  }
+  if (token && verifyToken(token))
+  {
+    try
+    {
+      user = await User.findOne({ _id: req.query?.id });
+      if (user != null)
+      {
+        return res.status(200).send(user);
+      }
+      else
+      {
+        return res.status(400).send("No user found")
+      }
+    }
+    catch (error)
+    {
+      //console.log("Hit catch block with error: " + error)
+      return res.status(500).send(`There was an error: ${error}`);
+    }
+  }
+  else
+  {
+    return res.status(401).send("Auth problem");
+  }
+});
+
 //Delete
 router.post("/DeleteUserById", async (req, res) =>
 {
